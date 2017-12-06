@@ -1,0 +1,115 @@
+---
+title: "`r icon::fa_calendar()` Calendar-based Graphics <br> for <br> Visualising People’s Daily Schedules"
+type: "Contributed"
+author: "Earo Wang <br><br> `r icon::fa_university()` Monash University"
+date: "Dec 11, 2017"
+output:
+  xaringan::moon_reader:
+    css: ["default", "myremark.css"]
+    self_contained: false
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r initial, echo = FALSE, cache = FALSE, results = 'hide'}
+library(knitr)
+options(htmltools.dir.version = FALSE, tibble.width = 60)
+opts_chunk$set(
+  echo = FALSE, warning = FALSE, message = FALSE, comment = "#>",
+  fig.path = 'figure/', cache.path = 'cache/', fig.align = 'center', 
+  fig.width = 12, fig.height = 11, fig.show = 'hold', 
+  cache = TRUE, external = TRUE, dev = 'svglite'
+)
+read_chunk('src/code.R')
+```
+
+```{r theme-remark}
+```
+
+.left-column[
+## Pedestrian counting system
+### - sensors
+]
+.right-column[
+## The city of Melbourne
+```{r sensor-map, fig.height = 9}
+```
+```{r selected-sensor, fig.show = "hide"}
+```
+]
+
+---
+
+.left-column[
+## Pedestrian counting system
+### - sensors
+### - the data
+]
+.right-column[
+* Sourced from [Melbourne open data portal](http://www.pedestrian.melbourne.vic.gov.au)
+* Access the pedestrian data through the [rwalkr](http://pkg.earo.me/rwalkr/) package
+* Up-to-date data till 2017-12-08
+```{r ped-data}
+```
+```{r ped-sub}
+```
+]
+
+---
+
+.left-column[
+## Take a glimpse
+### - selected sensors
+]
+.right-column[
+* Southbank
+* Southern Cross Station
+* Victoria Market
+```{r selected-sensor, fig.height = 9}
+```
+]
+
+---
+
+.left-column[
+## Take a glimpse
+### - selected sensors
+### - time series plot
+]
+.right-column[
+```{r ts-plot, echo = FALSE}
+```
+]
+
+---
+
+.left-column[
+## Take a glimpse
+### - selected sensors
+### - time series plot
+### - faceted display
+]
+.right-column[
+```{r facet-time, echo = FALSE}
+```
+]
+
+---
+
+class: inverse middle center
+
+.sticker-float[![sugrrants](img/sugrrants.svg)]
+
+## calendar-based visualisation
+
+---
+
+background-image: url(img/calendar.png)
+background-size: cover
+
+---
+
+background-image: url(figure/southbank-2016-1.svg)
+background-size: 80%

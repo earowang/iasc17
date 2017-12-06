@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><i class="fa  fa-calendar "></i> Calendar-based Graphics   for   Visualising People’s Daily Schedules</title>
+    <meta charset="utf-8">
+    <meta name="author" content="Earo Wang    <i class="fa  fa-university "></i> Monash University" />
+    <link href="index_files/remark-css/example.css" rel="stylesheet" />
+    <link href="index_files/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="myremark.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# <i class="fa  fa-calendar "></i> Calendar-based Graphics <br> for <br> Visualising People’s Daily Schedules
+### Earo Wang <br><br> <i class="fa  fa-university "></i> Monash University
+### Dec 11, 2017
+
+---
+
+
+
+
+
+
+.left-column[
+## Pedestrian counting system
+### - sensors
+]
+.right-column[
+## The city of Melbourne
+&lt;img src="figure/sensor-map-1.svg" style="display: block; margin: auto;" /&gt;
+
+]
+
+---
+
+.left-column[
+## Pedestrian counting system
+### - sensors
+### - the data
+]
+.right-column[
+* Sourced from [Melbourne open data portal](http://www.pedestrian.melbourne.vic.gov.au)
+* Access the pedestrian data through the [rwalkr](http://pkg.earo.me/rwalkr/) package
+* Up-to-date data till 2017-12-08
+
+```
+#&gt; # A tibble: 371,736 x 5
+#&gt;                            Sensor  Date_Time       Date
+#&gt;                             &lt;chr&gt;     &lt;dttm&gt;     &lt;date&gt;
+#&gt;  1                   Alfred Place 2017-01-01 2017-01-01
+#&gt;  2           Australia on Collins 2017-01-01 2017-01-01
+#&gt;  3                 Birrarung Marr 2017-01-01 2017-01-01
+#&gt;  4    Bourke St-Russell St (West) 2017-01-01 2017-01-01
+#&gt;  5     Bourke Street Mall (North) 2017-01-01 2017-01-01
+#&gt;  6     Bourke Street Mall (South) 2017-01-01 2017-01-01
+#&gt;  7 Chinatown-Lt Bourke St (South) 2017-01-01 2017-01-01
+#&gt;  8  Chinatown-Swanston St (North) 2017-01-01 2017-01-01
+#&gt;  9                    City Square 2017-01-01 2017-01-01
+#&gt; 10          Collins Place (North) 2017-01-01 2017-01-01
+#&gt; # ... with 371,726 more rows, and 2 more variables:
+#&gt; #   Time &lt;int&gt;, Count &lt;int&gt;
+```
+
+]
+
+---
+
+.left-column[
+## Take a glimpse
+### - selected sensors
+]
+.right-column[
+* Southbank
+* Southern Cross Station
+* Victoria Market
+&lt;img src="figure/selected-sensor-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+.left-column[
+## Take a glimpse
+### - selected sensors
+### - time series plot
+]
+.right-column[
+&lt;img src="figure/ts-plot-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+.left-column[
+## Take a glimpse
+### - selected sensors
+### - time series plot
+### - faceted display
+]
+.right-column[
+&lt;img src="figure/facet-time-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+class: inverse middle center
+
+.sticker-float[![sugrrants](img/sugrrants.svg)]
+
+## calendar-based visualisation
+
+---
+
+background-image: url(img/calendar.png)
+background-size: cover
+
+---
+
+background-image: url(figure/southbank-2016-1.svg)
+background-size: 80%
+    </textarea>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {window.dispatchEvent(new Event('resize'));});
+(function() {var d = document, s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler"); if (!r) return; s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }"; d.head.appendChild(s);})();</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+  }
+});
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
