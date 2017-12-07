@@ -25,17 +25,22 @@ theme_set(theme_remark())
 ## ---- selected-sensor
 sensors <- c("Southern Cross Station", "Victoria Market", "Southbank")
 
-sensor_loc %>% 
+sensor_more <- sensor_loc %>% 
   mutate(
     Sensor = if_else(Sensor == "QV Market-Peel St", "Victoria Market", Sensor),
-    Selected = ifelse(Sensor %in% sensors, TRUE, FALSE)
-  ) %>% 
-  qmplot(
-    x = Longitude, y = Latitude, data = .,
-    colour = Selected, shape = Selected, size = I(5)
-  ) +
-  scale_colour_brewer(palette = "Dark2") +
-  theme_remark()
+    Selected = if_else(Sensor %in% sensors, TRUE, FALSE)
+  )
+sensor_unsel <- sensor_more %>% 
+  filter(Selected == FALSE)
+sensor_sel <- sensor_more %>% 
+  filter(Selected == TRUE)
+qmplot(
+  x = Longitude, y = Latitude, data = sensor_unsel,
+  colour = Selected, shape = Selected, size = I(5)
+) +
+geom_point(aes(x = Longitude, y = Latitude), data = sensor_sel, size = I(12)) +
+scale_colour_brewer(palette = "Dark2") +
+theme_remark()
 
 ## ---- ped-data
 ped_run <- rwalkr::run_melb(year = 2017)
