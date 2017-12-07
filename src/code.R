@@ -44,14 +44,14 @@ ped_walk <- rwalkr::walk_melb(
 )
 pedestrian <- bind_rows(ped_run, ped_walk) %>% 
   mutate(
-    Sensor = if_else(Sensor == "QV Market-Peel St", "Victoria Market", Sensor)
+    Sensor = if_else(Sensor == "QV Market-Peel St", "Victoria Market", Sensor),
+    Holiday = if_else(Date %in% c(au_holiday(2017)$date, as_date("2017-09-29")), 
+    TRUE, FALSE)
   )
-pedestrian
 
 ## ---- ped-sub
 subdat <- pedestrian %>% 
-  filter(Sensor %in% sensors) %>% 
-  mutate(Day = wday(Date, label = TRUE, week_start = 1))
+  filter(Sensor %in% sensors)
 
 ## ---- ts-plot
 # conventional time series plot
@@ -95,10 +95,7 @@ subdat %>%
 # calendar plot for southbank
 southbank <- subdat %>% 
   filter(Sensor == "Southbank") %>% 
-  mutate(
-    Holiday = ifelse(Date %in% c(au_holiday(2017)$date, as_date("2017-09-29")), 
-    TRUE, FALSE)
-  )
+  mutate(Day = wday(Date, label = TRUE, week_start = 1))
 
 southbank_cal <- southbank %>%
   frame_calendar(x = Time, y = Count, date = Date)
@@ -136,6 +133,41 @@ p_southbank_daily <- southbank_daily %>%
   scale_colour_brewer(palette = "Dark2") +
   theme_remark()
 prettify(p_southbank_daily, size = 5)
+
+## ---- sx
+sx_cal <- pedestrian %>% 
+  filter(Sensor == "Southern Cross Station") %>% 
+  frame_calendar(x = Time, y = Count, date = Date)
+sx_cal %>% 
+  select(Time, Count, Date, .Time, .Count)
+
+## ---- sx-plot
+p_sx <- ggplot(sx_cal, aes(x = .Time, y = .Count, group = Date)) +
+  geom_line() +
+  theme_remark()
+p_sx
+
+## ---- sx-prettify
+prettify(p_sx)
+
+## ---- sx-hol
+p2_sx <- sx_cal %>% 
+  ggplot(aes(.Time, .Count, group = Date, colour = Holiday)) +
+  geom_line() +
+  theme_remark()
+prettify(p2_sx)
+
+## ---- sx-march
+p3_sx <- pedestrian %>% 
+  filter(
+    Sensor == "Southern Cross Station",
+    Date >= as_date("2017-03-01"), Date <= as_date("2017-03-31")
+  ) %>% 
+  frame_calendar(x = Time, y = Count, date = Date) %>% 
+  ggplot(aes(.Time, .Count, group = Date, colour = Holiday)) +
+  geom_line() +
+  theme_remark()
+prettify(p3_sx, label = c("label", "text", "text2"))
 
 ## ---- southbank-free
 # calendar plot for southbank street station using local scale

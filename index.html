@@ -21,8 +21,6 @@ class: center, middle, inverse, title-slide
 
 
 
-
-
 .left-column[
 ## Pedestrian counting system
 ### - sensors
@@ -30,6 +28,7 @@ class: center, middle, inverse, title-slide
 .right-column[
 ## The city of Melbourne
 &lt;img src="figure/sensor-map-1.svg" style="display: block; margin: auto;" /&gt;
+
 
 ]
 
@@ -45,8 +44,9 @@ class: center, middle, inverse, title-slide
 * Access the pedestrian data through the [rwalkr](http://pkg.earo.me/rwalkr/) package
 * Up-to-date data till 2017-12-08
 
+
 ```
-#&gt; # A tibble: 371,736 x 5
+#&gt; # A tibble: 404,856 x 6
 #&gt;                            Sensor  Date_Time       Date
 #&gt;                             &lt;chr&gt;     &lt;dttm&gt;     &lt;date&gt;
 #&gt;  1                   Alfred Place 2017-01-01 2017-01-01
@@ -59,8 +59,8 @@ class: center, middle, inverse, title-slide
 #&gt;  8  Chinatown-Swanston St (North) 2017-01-01 2017-01-01
 #&gt;  9                    City Square 2017-01-01 2017-01-01
 #&gt; 10          Collins Place (North) 2017-01-01 2017-01-01
-#&gt; # ... with 371,726 more rows, and 2 more variables:
-#&gt; #   Time &lt;int&gt;, Count &lt;int&gt;
+#&gt; # ... with 404,846 more rows, and 3 more variables:
+#&gt; #   Time &lt;int&gt;, Count &lt;int&gt;, Holiday &lt;lgl&gt;
 ```
 
 ]
@@ -103,14 +103,6 @@ class: center, middle, inverse, title-slide
 
 ---
 
-class: inverse middle center
-
-.sticker-float[![sugrrants](img/sugrrants.svg)]
-
-## calendar-based visualisation
-
----
-
 background-image: url(img/calendar.png)
 background-size: cover
 
@@ -118,6 +110,222 @@ background-size: cover
 
 background-image: url(figure/southbank-2016-1.svg)
 background-size: 80%
+
+---
+
+class: inverse middle center
+
+&lt;img src="img/sugrrants.svg" height=200px size=50%&gt;
+
+## <i class="fa  fa-calendar "></i> calendar-based visualisation
+
+---
+
+.left-column[
+## Calendar-based vis
+### - construction
+]
+.right-column[
+&lt;center&gt;
+  &lt;img src="img/month.png" width = 500&gt;
+&lt;/center&gt;
+
+The grid position for any day in the month is given by
+
+`\begin{align}
+i &amp;= \lceil (g \mod 35) / 7\rceil \\ j &amp;= g \mod 7.
+\end{align}`
+
+Let `\(h\)` and `\(c\)` be the scaled hour and count, respectively, then the final
+coordinates are given by:
+
+`\begin{align}
+x &amp;= i + h \\ y &amp;= -j + c.
+\end{align}`
+]
+
+---
+
+.left-column[
+## Calendar-based vis
+### - construction
+### - the args
+]
+.right-column[
+### The `frame_calendar()` function
+
+```r
+frame_calendar(
+  data, x, y, date, calendar = "monthly", dir = "h",
+  sunday = FALSE, nrow = NULL, ncol = NULL, polar = FALSE,
+  scale = "fixed", width = 0.95, height = 0.95
+)
+```
+* `x`, `y`: a unquoted (or bare) variable mapping to x and y axis.
+* `date`: a Date variable mapping to dates in the calendar.
+* `calendar`: type of calendar. "monthly", "weekly", "daily".
+* `sunday`: `FALSE` indicating to starting with Monday in a week, or `TRUE` for Sunday.
+* `nrow`, `ncol`: number of rows and columns defined for "monthly" calendar layout.
+* `scale`: "fixed", "free", "free_wday", and "free_mday".
+]
+
+---
+
+.left-column[
+## Calendar-based vis
+### - construction
+### - the args
+### - usage
+]
+.right-column[
+## Rearrange the data
+
+```r
+sx_cal &lt;- pedestrian %&gt;% 
+  filter(Sensor == "Southern Cross Station") %&gt;% 
+  frame_calendar(x = Time, y = Count, date = Date)
+sx_cal %&gt;% 
+  select(Time, Count, Date, .Time, .Count)
+```
+
+```
+#&gt; # A tibble: 8,856 x 5
+#&gt;     Time Count       Date     .Time    .Count
+#&gt;  * &lt;int&gt; &lt;int&gt;     &lt;date&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+#&gt;  1     0  1335 2017-01-01 0.2583333 0.9860202
+#&gt;  2     1   463 2017-01-01 0.2598631 0.9721692
+#&gt;  3     2   219 2017-01-01 0.2613929 0.9682934
+#&gt;  4     3   122 2017-01-01 0.2629227 0.9667527
+#&gt;  5     4    21 2017-01-01 0.2644525 0.9651484
+#&gt;  6     5    28 2017-01-01 0.2659823 0.9652596
+#&gt;  7     6    26 2017-01-01 0.2675121 0.9652278
+#&gt;  8     7    35 2017-01-01 0.2690419 0.9653708
+#&gt;  9     8    55 2017-01-01 0.2705717 0.9656884
+#&gt; 10     9    82 2017-01-01 0.2721014 0.9661173
+#&gt; # ... with 8,846 more rows
+```
+]
+
+---
+
+.left-column[
+## Calendar-based vis
+### - construction
+### - the args
+### - usage
+]
+.right-column[
+## Initialise the plot with `ggplot2`
+```r
+p1_sx &lt;- sx_cal %&gt;% 
+  ggplot(aes(x = .Time, y = .Count, group = Date)) +
+  geom_line()
+```
+&lt;img src="figure/sx-plot-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+.left-column[
+## Calendar-based vis
+### - construction
+### - the args
+### - usage
+]
+.right-column[
+## Add grid lines and labels
+```r
+prettify(p1_sx)
+```
+&lt;img src="figure/sx-prettify-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+.left-column[
+## Calendar-based vis
+### - construction
+### - the args
+### - usage
+]
+.right-column[
+## Colour mapping as usual 
+```r
+p2_sx &lt;- sx_cal %&gt;%
+  ggplot(aes(x = .Time, y = .Count, colour = Holiday, group = Date)) +
+  geom_line()
+prettify(p2_sx)
+```
+&lt;img src="figure/sx-hol-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+.left-column[
+## Calendar-based vis
+### - construction
+### - the args
+### - usage
+]
+.right-column[
+## Zoom in to March
+&lt;img src="figure/sx-march-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+.left-column[
+## Calendar-based vis
+### - construction
+### - the args
+### - usage
+]
+.right-column[
+## Naturally work with the `group_by()`
+```r
+facet_cal &lt;- subdat %&gt;% 
+  group_by(Sensor) %&gt;% 
+* frame_calendar(
+*   x = Time, y = Count, date = Date, nrow = 2
+* )
+
+p_facet &lt;- facet_cal %&gt;% 
+  ggplot(aes(x = .Time, y = .Count, group = Date)) +
+  geom_line(aes(colour = Sensor)) +
+  facet_grid(Sensor ~ .) +
+  scale_colour_brewer(palette = "Dark2")
+prettify(p_facet, label = NULL)
+```
+]
+
+---
+
+.left-column[
+## Calendar-based vis
+### - construction
+### - the args
+### - usage
+]
+.right-column[
+## Faceted calendar plots
+&lt;img src="figure/facet-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+## <i class="fa  fa-list "></i> Summary
+
+
+* The full range of plotting capabilities in *ggplot2* is essentially available, from `geom_point()` to `geom_boxplot()`.
+* Other language supports are made for month and weekday labels, like CJK.
+* Patterns on special events for the region, like Anzac Day in Australia, or Thanksgiving Day in the USA, more easily pop out to the viewer as public holidays.
+* This sort of layout will be useful for studying consumer trends, or human behavior, such as pedestrian patterns or residential electricity demand.
+
+---
+
+class: inverse middle center
+
+# Thanks for listening! &lt;br&gt;&lt;br&gt; Questions<i class="fa  fa-question "></i>
     </textarea>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script>var slideshow = remark.create({
