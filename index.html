@@ -117,8 +117,8 @@ background-size: cover
 
 ---
 
-background-image: url(figure/southbank-2016-1.svg)
-background-size: 80%
+background-image: url(figure/sx-hol-1.svg)
+background-size: cover
 
 ---
 
@@ -141,16 +141,16 @@ class: inverse middle center
 
 The grid position for any day in the month is given by
 
-`\begin{align}
+`$$\begin{align}
 i &amp;= \lceil (g \mod 35) / 7\rceil \\ j &amp;= g \mod 7.
-\end{align}`
+\end{align}$$`
 
 Let `\(h\)` and `\(c\)` be the scaled hour and count, respectively, then the final
 coordinates are given by:
 
-`\begin{align}
-x &amp;= i + h \\ y &amp;= -j + c.
-\end{align}`
+`$$\begin{align}
+x &amp;= j + h \\ y &amp;= i - c.
+\end{align}$$`
 ]
 
 ---
@@ -188,17 +188,15 @@ frame_calendar(
 ]
 .right-column[
 ## Rearrange the data
-
 ```r
 sx_cal &lt;- pedestrian %&gt;% 
   filter(Sensor == "Southern Cross Station") %&gt;% 
-  frame_calendar(x = Time, y = Count, date = Date)
-sx_cal %&gt;% 
-  select(Time, Count, Date, .Time, .Count)
+* frame_calendar(x = Time, y = Count, date = Date)
 ```
 
+
 ```
-#&gt; # A tibble: 8,856 x 5
+#&gt; # A tibble: 8,184 x 5
 #&gt;     Time Count       Date     .Time    .Count
 #&gt;  * &lt;int&gt; &lt;int&gt;     &lt;date&gt;     &lt;dbl&gt;     &lt;dbl&gt;
 #&gt;  1     0  1335 2017-01-01 0.2583333 0.9860202
@@ -211,7 +209,7 @@ sx_cal %&gt;%
 #&gt;  8     7    35 2017-01-01 0.2690419 0.9653708
 #&gt;  9     8    55 2017-01-01 0.2705717 0.9656884
 #&gt; 10     9    82 2017-01-01 0.2721014 0.9661173
-#&gt; # ... with 8,846 more rows
+#&gt; # ... with 8,174 more rows
 ```
 ]
 
