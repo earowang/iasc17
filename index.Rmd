@@ -114,8 +114,8 @@ background-size: cover
 
 ---
 
-background-image: url(figure/southbank-2016-1.svg)
-background-size: 80%
+background-image: url(figure/sx-hol-1.svg)
+background-size: cover
 
 ---
 
@@ -138,16 +138,16 @@ class: inverse middle center
 
 The grid position for any day in the month is given by
 
-\begin{align}
+$$\begin{align}
 i &= \lceil (g \mod 35) / 7\rceil \\ j &= g \mod 7.
-\end{align}
+\end{align}$$
 
 Let $h$ and $c$ be the scaled hour and count, respectively, then the final
 coordinates are given by:
 
-\begin{align}
-x &= i + h \\ y &= -j + c.
-\end{align}
+$$\begin{align}
+x &= j + h \\ y &= i - c.
+\end{align}$$
 ]
 
 ---
@@ -185,7 +185,13 @@ frame_calendar(
 ]
 .right-column[
 ## Rearrange the data
-```{r sx, echo = TRUE}
+```r
+sx_cal <- pedestrian %>% 
+  filter(Sensor == "Southern Cross Station") %>% 
+* frame_calendar(x = Time, y = Count, date = Date)
+```
+
+```{r sx}
 ```
 ]
 
