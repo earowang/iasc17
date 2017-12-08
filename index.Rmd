@@ -13,6 +13,8 @@ output:
       countIncrementalSlides: false
 ---
 
+class: middle center
+
 ```{r initial, echo = FALSE, cache = FALSE, results = 'hide'}
 library(knitr)
 options(htmltools.dir.version = FALSE, tibble.width = 60)
@@ -24,6 +26,13 @@ opts_chunk$set(
 )
 read_chunk('src/code.R')
 ```
+
+background-image: url(img/sensor.png)
+background-size: 55%
+
+# .blue[Melbourne pedestrian activity]
+
+---
 
 .left-column[
 ## Pedestrian counting system
@@ -208,7 +217,7 @@ p1_sx <- sx_cal %>%
 ### - usage
 ]
 .right-column[
-## Add grid lines and labels
+## Add reference lines and labels
 ```r
 prettify(p1_sx)
 ```
@@ -304,4 +313,8 @@ prettify(p_facet, label = NULL)
 
 class: inverse middle center
 
-# Thanks for listening! <br><br> Questions`r icon::fa_question()`
+# Joint work with [Di Cook](http://dicook.org) and [Rob J Hyndman](http://robjhyndman.com)
+
+# Made with [`r icon::fa_heart()`]() and `r icon::fa_coffee()`
+
+# Questions`r icon::fa_question()`
