@@ -56,7 +56,8 @@ pedestrian <- bind_rows(ped_run, ped_walk) %>%
 
 ## ---- ped-sub
 subdat <- pedestrian %>% 
-  filter(Sensor %in% sensors)
+  filter(Sensor %in% sensors) %>% 
+  mutate(Day = wday(Date, label = TRUE, week_start = 1))
 
 ## ---- ts-plot
 # conventional time series plot
@@ -99,8 +100,7 @@ subdat %>%
 ## ---- southbank-2016
 # calendar plot for southbank
 southbank <- subdat %>% 
-  filter(Sensor == "Southbank") %>% 
-  mutate(Day = wday(Date, label = TRUE, week_start = 1))
+  filter(Sensor == "Southbank")
 
 southbank_cal <- southbank %>%
   frame_calendar(x = Time, y = Count, date = Date)
