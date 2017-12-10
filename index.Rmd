@@ -58,7 +58,7 @@ background-size: 55%
 .right-column[
 * Sourced from [Melbourne open data portal](http://www.pedestrian.melbourne.vic.gov.au)
 * Access the pedestrian data through the [rwalkr](http://pkg.earo.me/rwalkr/) package
-* Up-to-date data till 2017-12-08
+* Up-to-date data till 2017-12-09
 ```{r ped-data}
 ```
 ```{r ped-print}

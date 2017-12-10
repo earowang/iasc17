@@ -51,11 +51,11 @@ background-size: 55%
 .right-column[
 * Sourced from [Melbourne open data portal](http://www.pedestrian.melbourne.vic.gov.au)
 * Access the pedestrian data through the [rwalkr](http://pkg.earo.me/rwalkr/) package
-* Up-to-date data till 2017-12-08
+* Up-to-date data till 2017-12-09
 
 
 ```
-#&gt; # A tibble: 376,992 x 6
+#&gt; # A tibble: 378,024 x 6
 #&gt;                            Sensor  Date_Time       Date
 #&gt;                             &lt;chr&gt;     &lt;dttm&gt;     &lt;date&gt;
 #&gt;  1                   Alfred Place 2017-01-01 2017-01-01
@@ -68,7 +68,7 @@ background-size: 55%
 #&gt;  8  Chinatown-Swanston St (North) 2017-01-01 2017-01-01
 #&gt;  9                    City Square 2017-01-01 2017-01-01
 #&gt; 10          Collins Place (North) 2017-01-01 2017-01-01
-#&gt; # ... with 376,982 more rows, and 3 more variables:
+#&gt; # ... with 378,014 more rows, and 3 more variables:
 #&gt; #   Time &lt;int&gt;, Count &lt;int&gt;, Holiday &lt;lgl&gt;
 ```
 
@@ -196,7 +196,7 @@ sx_cal &lt;- pedestrian %&gt;%
 
 
 ```
-#&gt; # A tibble: 8,208 x 5
+#&gt; # A tibble: 8,232 x 5
 #&gt;     Time Count       Date     .Time    .Count
 #&gt;  * &lt;int&gt; &lt;int&gt;     &lt;date&gt;     &lt;dbl&gt;     &lt;dbl&gt;
 #&gt;  1     0  1335 2017-01-01 0.2583333 0.9860202
@@ -209,7 +209,7 @@ sx_cal &lt;- pedestrian %&gt;%
 #&gt;  8     7    35 2017-01-01 0.2690419 0.9653708
 #&gt;  9     8    55 2017-01-01 0.2705717 0.9656884
 #&gt; 10     9    82 2017-01-01 0.2721014 0.9661173
-#&gt; # ... with 8,198 more rows
+#&gt; # ... with 8,222 more rows
 ```
 ]
 

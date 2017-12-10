@@ -45,7 +45,7 @@ theme_remark()
 ## ---- ped-data
 ped_run <- rwalkr::run_melb(year = 2017)
 ped_walk <- rwalkr::walk_melb(
-  from = as_date("2017-12-01"), to = as_date("2017-12-08")
+  from = as_date("2017-12-01"), to = as_date("2017-12-09")
 )
 pedestrian <- bind_rows(ped_run, ped_walk) %>% 
   mutate(
